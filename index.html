@@ -1,0 +1,446 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Little Glow</title>
+
+    <style>
+        /* CONFIGURACIÓN GENERAL */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #fff8f5;
+            font-family: Georgia, serif;
+            color: #493b3b;
+            cursor: none;
+        }
+
+        /* CURSOR PERSONALIZADO */
+        .cursor {
+            width: 18px;
+            height: 18px;
+            background-color: #eea5b8;
+            border: 2px solid white;
+            border-radius: 50%;
+            position: fixed;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+            z-index: 9999;
+            transform: translate(-50%, -50%);
+            box-shadow: 0 0 10px #eeb6c5;
+        }
+
+        /* CABECERA */
+        header {
+            background-color: #f8e3e6;
+            padding: 20px 35px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 2px solid #efd0d4;
+        }
+
+        .logo {
+            color: #91a58d;
+            font-size: 32px;
+            font-style: italic;
+        }
+
+        .logo span {
+            color: #e99caf;
+        }
+
+        /* MENÚ */
+        nav {
+            background-color: #fffaf7;
+            padding: 15px;
+            border-radius: 30px;
+            display: flex;
+            gap: 30px;
+            box-shadow: 0 3px 10px #ead6d6;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: #493b3b;
+            font-size: 16px;
+            transition: 0.3s;
+        }
+
+        nav a:hover {
+            color: #dc8da3;
+            transform: translateY(-3px);
+        }
+
+        /* CONTENEDOR PRINCIPAL */
+        .contenedor {
+            display: grid;
+            grid-template-columns: 220px 1fr 220px;
+            gap: 25px;
+            padding: 35px;
+        }
+
+        /* PANEL IZQUIERDO */
+        .accesos {
+            background-color: #f9e6e8;
+            border: 1px solid #efd0d4;
+            border-radius: 20px;
+            overflow: hidden;
+            height: fit-content;
+        }
+
+        .titulo-panel {
+            background-color: #f5d5dc;
+            padding: 18px;
+            text-align: center;
+            font-size: 19px;
+        }
+
+        .botones {
+            padding: 15px;
+        }
+
+        .botones button {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 12px;
+            border: 1px solid #efd2d5;
+            border-radius: 25px;
+            background-color: #fff7f5;
+            color: #665252;
+            font-family: Georgia, serif;
+            font-size: 15px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .botones button:hover {
+            background-color: #edc1cc;
+            transform: translateX(5px);
+        }
+
+        /* ÁREA CENTRAL */
+        .principal h1 {
+            font-size: 29px;
+            margin-bottom: 12px;
+        }
+
+        .subtitulo {
+            color: #907b78;
+            margin-bottom: 25px;
+            font-size: 16px;
+        }
+
+        .categoria {
+            display: inline-block;
+            background-color: #e9e8dc;
+            padding: 10px 20px;
+            border-radius: 25px;
+            margin-bottom: 20px;
+        }
+
+        /* TARJETAS */
+        .tarjetas {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 18px;
+        }
+
+        .tarjeta {
+            background-color: #fffaf8;
+            border: 1px solid #ead3d3;
+            border-radius: 18px;
+            overflow: hidden;
+            box-shadow: 0 3px 7px #eadcda;
+            transition: 0.3s;
+            cursor: pointer;
+        }
+
+        .tarjeta:hover {
+            transform: translateY(-7px);
+            box-shadow: 0 8px 15px #e6c6ce;
+        }
+
+        .espacio-imagen {
+            height: 110px;
+            background-color: #f8dfe3;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #bc8492;
+            font-size: 25px;
+        }
+
+        .tarjeta h3 {
+            padding: 15px;
+            font-size: 16px;
+            text-align: center;
+        }
+
+        /* PANEL DERECHO */
+        .tareas {
+            background-color: #fff2ef;
+            border: 1px solid #efd8d5;
+            border-radius: 20px;
+            height: fit-content;
+            overflow: hidden;
+        }
+
+        .lista-tareas {
+            padding: 15px;
+        }
+
+        .lista-tareas label {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin: 12px 0;
+            color: #806e6b;
+        }
+
+        .lista-tareas input {
+            accent-color: #df9eae;
+            width: 17px;
+            height: 17px;
+        }
+
+        /* FRASE DECORATIVA */
+        .frase {
+            background-color: #fbe4df;
+            padding: 20px;
+            border-radius: 12px;
+            margin-top: 30px;
+            text-align: center;
+            font-style: italic;
+            color: #775c5a;
+            transform: rotate(-2deg);
+        }
+
+        /* PIE DE PÁGINA */
+        footer {
+            text-align: center;
+            padding: 25px;
+            color: #a58b8a;
+        }
+
+        /* ADAPTACIÓN PARA CELULARES */
+        @media (max-width: 950px) {
+            .contenedor {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .principal {
+                grid-column: 1 / -1;
+                grid-row: 1;
+            }
+
+            .tarjetas {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            nav {
+                gap: 12px;
+                flex-wrap: wrap;
+            }
+        }
+
+        @media (max-width: 600px) {
+            header {
+                flex-direction: column;
+                gap: 18px;
+            }
+
+            .contenedor {
+                grid-template-columns: 1fr;
+                padding: 20px;
+            }
+
+            .principal {
+                grid-column: auto;
+            }
+
+            .tarjetas {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            nav {
+                justify-content: center;
+            }
+
+            body {
+                cursor: auto;
+            }
+
+            .cursor {
+                display: none;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- CURSOR -->
+    <div class="cursor"></div>
+
+    <!-- CABECERA -->
+    <header>
+        <div class="logo">
+            My Little <span>♡</span> Glow
+        </div>
+
+        <!-- MENÚ DE NAVEGACIÓN -->
+        <nav>
+            <a href="#">⌂ Inicio</a>
+            <a href="#">▦ Diario</a>
+            <a href="#">♡ Hábitos</a>
+            <a href="#">♧ Recursos</a>
+            <a href="#">✧ Nosotras</a>
+        </nav>
+    </header>
+
+    <!-- CONTENIDO -->
+    <main class="contenedor">
+
+        <!-- PANEL IZQUIERDO -->
+        <aside>
+
+            <div class="accesos">
+
+                <h2 class="titulo-panel">
+                    Quick Access 🎀
+                </h2>
+
+                <div class="botones">
+                    <button>＋ New Gratitude</button>
+                    <button>＋ New Reflection</button>
+                    <button>＋ New Habit</button>
+                    <button>＋ New Task</button>
+                    <button>＋ New Journal</button>
+                </div>
+
+            </div>
+
+            <div class="frase">
+                "Bloom at your own pace, darling" ♡
+            </div>
+
+        </aside>
+
+        <!-- ÁREA CENTRAL -->
+        <section class="principal">
+
+            <h1>🌸 Hola, Adriana ♡</h1>
+
+            <p class="subtitulo">
+                Recuerda: cuidar de ti también es un acto de amor ♡
+            </p>
+
+            <div class="categoria">
+                ♥ My Life
+            </div>
+
+            <!-- TARJETAS -->
+            <div class="tarjetas">
+
+                <div class="tarjeta">
+                    <div class="espacio-imagen">♡</div>
+                    <h3>📝 Journal</h3>
+                </div>
+
+                <div class="tarjeta">
+                    <div class="espacio-imagen">✿</div>
+                    <h3>🌼 Habit Tracker</h3>
+                </div>
+
+                <div class="tarjeta">
+                    <div class="espacio-imagen">♡</div>
+                    <h3>⌛ Weekly to-dos</h3>
+                </div>
+
+                <div class="tarjeta">
+                    <div class="espacio-imagen">✿</div>
+                    <h3>🌻 Monthly Journal</h3>
+                </div>
+
+                <div class="tarjeta">
+                    <div class="espacio-imagen">♡</div>
+                    <h3>💗 Affirmations</h3>
+                </div>
+
+                <div class="tarjeta">
+                    <div class="espacio-imagen">✧</div>
+                    <h3>♡ My Goals</h3>
+                </div>
+
+            </div>
+
+        </section>
+
+        <!-- PANEL DERECHO -->
+        <aside>
+
+            <div class="tareas">
+
+                <h2 class="titulo-panel">
+                    Today's Tasks ✨
+                </h2>
+
+                <div class="lista-tareas">
+
+                    <label>
+                        <input type="checkbox">
+                        To-do
+                    </label>
+
+                    <label>
+                        <input type="checkbox">
+                        To-do
+                    </label>
+
+                    <label>
+                        <input type="checkbox">
+                        To-do
+                    </label>
+
+                    <label>
+                        <input type="checkbox">
+                        To-do
+                    </label>
+
+                </div>
+
+            </div>
+
+        </aside>
+
+    </main>
+
+    <footer>
+        Made with love ♡ My Little Glow
+    </footer>
+
+    <!-- JAVASCRIPT: MOVIMIENTO DEL CURSOR -->
+    <script>
+
+        const cursor = document.querySelector(".cursor");
+
+        document.addEventListener("mousemove", function(event) {
+
+            cursor.style.left = event.clientX + "px";
+            cursor.style.top = event.clientY + "px";
+
+        });
+
+    </script>
+
+</body>
+</html>
